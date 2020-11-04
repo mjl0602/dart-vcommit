@@ -9,19 +9,19 @@ import 'package:path/path.dart' as path;
 /// 脚本运行路径
 Uri shellPath = Uri.parse(path.join(Platform.environment['PWD']));
 
-var markInfo = [
-  "feat",
-  "fix",
-  "docs",
-  "style",
-  "refactor",
-  "perf",
-  "test",
-  "build",
-  "ci",
-  "chore",
-  "revert"
-];
+var markInfo = {
+  "feat": "",
+  "fix": "",
+  "docs": "",
+  "style": "",
+  "refactor": "",
+  "perf": "",
+  "test": "",
+  "build": "",
+  "ci": "",
+  "chore": "",
+  "revert": ""
+};
 main(List<String> args) {
   ArgResults _argResults;
   // 创建ArgParser的实例，同时指定需要输入的参数
@@ -37,7 +37,8 @@ main(List<String> args) {
       negatable: false,
       help: "查看指令帮助",
     );
-  for (var mark in markInfo) {
+  // 构建列表
+  for (var mark in markInfo.keys) {
     argParser.addFlag(
       mark,
       negatable: false,
@@ -51,7 +52,7 @@ main(List<String> args) {
   }
   _argResults = argParser.parse(args);
   var command = _argResults.arguments.first;
-  print('执行命令:$command');
+  print('执行命令: ${_argResults.arguments}');
 
   /// 读取当前目录
   Project project = Project.currentPath();
@@ -68,14 +69,16 @@ main(List<String> args) {
     print('没有填写提交内容');
     return;
   }
-  print('版本: $version');
+  print('版本: $version.');
   var res = Process.runSync(
     "git",
     ["commit", "-m", "'[$version]$mark: $content'"],
     runInShell: true,
   );
-  print(res.exitCode);
-  print("Err: ${res.stderr}");
+  print("exitCode:${res.exitCode}");
+  if (res.stderr.toString().isNotEmpty) {
+    print("Err: ${res.stderr}");
+  }
   print('Out: ${res.stdout}');
 }
 
@@ -96,7 +99,7 @@ Map<String, ProjectType> typeMap = {
 /// 正则获取版本号内容
 /// r是屏蔽转义，直接输入目标字符，就不用写[\\s \\n]这种东西了
 Map<ProjectType, RegExp> targetMap = {
-  ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)\n'),
+  ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)(?=\n)'),
   ProjectType.node: RegExp(r'(?<=:\s")(.+?)(?=",)'),
 };
 
@@ -116,7 +119,7 @@ class Project {
       var name = path.basename(file.path);
       type = typeMap[name];
       if (type != null) {
-        print(type);
+        // print(type);
         currentVersion = versionFromFile(file, type);
         break;
       }
