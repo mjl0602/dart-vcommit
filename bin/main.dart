@@ -52,24 +52,31 @@ main(List<String> args) {
   _argResults = argParser.parse(args);
   var command = _argResults.arguments.first;
   print('执行命令:$command');
-  print(args);
+
+  /// 读取当前目录
   Project project = Project.currentPath();
   if (project == null) {
     print('不支持当前项目格式');
     return;
   }
+
+  /// 查询项目版本
   String version = project.currentVersion;
   String mark = "Fixed";
-  String content = 'init commit';
-  print('$version');
-  // var res = Process.runSync(
-  //   "git",
-  //   ["commit", "-m", "'[$version]$mark: $content'"],
-  //   runInShell: true,
-  // );
-  // print(res.exitCode);
-  // print("Err: ${res.stderr}");
-  // print('Out: ${res.stdout}');
+  String content = _argResults.rest.join(' ');
+  if (content.replaceAll(' ', '').isEmpty) {
+    print('没有填写提交内容');
+    return;
+  }
+  print('版本: $version');
+  var res = Process.runSync(
+    "git",
+    ["commit", "-m", "'[$version]$mark: $content'"],
+    runInShell: true,
+  );
+  print(res.exitCode);
+  print("Err: ${res.stderr}");
+  print('Out: ${res.stdout}');
 }
 
 enum ProjectType {
@@ -86,6 +93,13 @@ Map<String, ProjectType> typeMap = {
   "package.json": ProjectType.node,
 };
 
+/// 正则获取版本号内容
+/// r是屏蔽转义，直接输入目标字符，就不用写[\\s \\n]这种东西了
+Map<ProjectType, RegExp> targetMap = {
+  ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)\n'),
+  ProjectType.node: RegExp(r'(?<=:\s")(.+?)(?=",)'),
+};
+
 /// 当前项目
 class Project {
   final String currentVersion;
@@ -97,19 +111,24 @@ class Project {
   factory Project.currentPath() {
     String currentVersion;
     ProjectType type;
-    print('shellPath:$shellPath');
     var dir = Directory.fromUri(shellPath);
     for (var file in dir.listSync()) {
       var name = path.basename(file.path);
       type = typeMap[name];
       if (type != null) {
+        print(type);
+        currentVersion = versionFromFile(file, type);
         break;
       }
     }
-    currentVersion = "$type";
-    if (type == null) {
-      return null;
-    }
+    if (type == null) return null;
     return Project._(currentVersion, type);
+  }
+
+  /// 从当前目录读取目标版本号
+  static String versionFromFile(File file, ProjectType type) {
+    var content = file.readAsStringSync();
+    // 使用正则匹配
+    return targetMap[type].stringMatch(content);
   }
 }
