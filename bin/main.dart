@@ -10,13 +10,13 @@ import 'package:path/path.dart' as path;
 Uri shellPath = Uri.parse(path.join(Platform.environment['PWD']));
 
 var markInfo = {
-  "feat": "",
-  "fix": "",
-  "docs": "",
-  "style": "",
-  "refactor": "",
+  "feat": "新功能（feature）",
+  "fix": "修补bug",
+  "docs": "文档（documentation）",
+  "style": "格式（不影响代码运行的变动）",
+  "refactor": "重构（既不是新增功能，也不是修改bug的代码变动）",
   "perf": "",
-  "test": "",
+  "test": "增加测试",
   "build": "",
   "ci": "",
   "chore": "",
@@ -24,6 +24,7 @@ var markInfo = {
 };
 main(List<String> args) {
   ArgResults _argResults;
+
   // 创建ArgParser的实例，同时指定需要输入的参数
   final ArgParser argParser = new ArgParser()
     ..addFlag(
@@ -42,7 +43,7 @@ main(List<String> args) {
     argParser.addFlag(
       mark,
       negatable: false,
-      help: "添加标记:$mark",
+      help: markInfo[mark],
     );
   }
   _argResults = argParser.parse(args);
@@ -51,7 +52,6 @@ main(List<String> args) {
     return;
   }
   _argResults = argParser.parse(args);
-  var command = _argResults.arguments.first;
   print('执行命令: ${_argResults.arguments}');
 
   /// 读取当前目录
@@ -63,16 +63,38 @@ main(List<String> args) {
 
   /// 查询项目版本
   String version = project.currentVersion;
-  String mark = "Fixed";
   String content = _argResults.rest.join(' ');
   if (content.replaceAll(' ', '').isEmpty) {
     print('没有填写提交内容');
     return;
   }
-  print('版本: $version.');
+  print('读取到版本: $version.');
+
+  /// 查询标记
+  String targetMark;
+  for (var mark in markInfo.keys) {
+    if (_argResults[mark] == true) {
+      targetMark = mark.replaceRange(0, 1, mark.split('').first.toUpperCase());
+      break;
+    }
+  }
+  if (targetMark == null) {
+    print("命令标记无效: ${args}");
+    return;
+  }
+
+  /// 生成提交内容并确认
+  var commitContent = "'[$version]$targetMark: $content'";
+  print('请确认提交内容:\n$commitContent');
+  bool willContinue = confirm();
+  if (willContinue == false) {
+    return;
+  }
+
+  /// 运行git commit命令
   var res = Process.runSync(
     "git",
-    ["commit", "-m", "'[$version]$mark: $content'"],
+    ["commit", "-m", commitContent],
     runInShell: true,
   );
   print("exitCode:${res.exitCode}");
@@ -82,6 +104,20 @@ main(List<String> args) {
   print('Out: ${res.stdout}');
 }
 
+bool confirm() {
+  stdout.add('Please Confirm (y/n):'.codeUnits);
+  var input = stdin.readLineSync(retainNewlines: true);
+  input = input.replaceAll('\n', '').toLowerCase();
+  if (input == "n") {
+    return false;
+  }
+  if (input == "y") {
+    return true;
+  }
+  return confirm();
+}
+
+/// 全部项目类型
 enum ProjectType {
   unknown,
   node,
@@ -91,6 +127,7 @@ enum ProjectType {
   android,
 }
 
+/// 关键文件对应的类型
 Map<String, ProjectType> typeMap = {
   "pubspec.yaml": ProjectType.pub,
   "package.json": ProjectType.node,
