@@ -5,8 +5,8 @@
 # 安装
 
 ```shell
-git clone https://github.com/mjl0602/vcommit.git
-cd vad-cli
+git clone https://github.com/mjl0602/dart-vcommit.git
+cd dart-vcommit
 pub global activate --source path ./
 ```
 
@@ -23,9 +23,9 @@ brew install dart
 dart2native不支持交叉编译，在每个平台上只能编译当前平台的机器码
 ```bash
 # 请只在mac上运行
-dart2native bin/main.dart -o build/vad-cli-mac
+dart2native bin/main.dart -o build/dart-vcommit-mac
 # 请只在windows上运行
-dart2native bin/main.dart -o build/vad-cli-win
+dart2native bin/main.dart -o build/dart-vcommit-win.exe
 ```
 # dart2js
 
