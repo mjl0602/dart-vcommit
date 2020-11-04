@@ -18,9 +18,11 @@ brew install dart
 ```
 
 总之要先安装pub
+
 # dart2native
 
 dart2native不支持交叉编译，在每个平台上只能编译当前平台的机器码
+
 ```bash
 # 请只在mac上运行
 dart2native bin/main.dart -o build/dart-vcommit-mac
