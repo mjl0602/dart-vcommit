@@ -21,9 +21,9 @@ brew install dart
 
 # 使用
 
-命令示例: vcm --feat "添加登陆功能"
+命令示例: vcm --feat "添加登陆功能"  
 生成提交: [0.1.1+2]Feat: 添加登陆功能
-
+```
 命令大全
 -u, --[no-]up     版本号+1
 -h, --help        查看指令帮助
@@ -40,7 +40,7 @@ brew install dart
     --ci          持续集成
     --chore       构建过程或辅助工具的变动
     --revert      撤销，版本回退
-
+```
 # dart2native
 
 dart2native不支持交叉编译，在每个平台上只能编译当前平台的机器码
