@@ -27,16 +27,3 @@ dart2native bin/main.dart -o build/dart-vcommit-mac
 # 请只在windows上运行
 dart2native bin/main.dart -o build/dart-vcommit-win.exe
 ```
-# dart2js
-
-> 有bug，无法使用
-
-生成
-```bash
-# dart2js
-dart2js ./bin/main-js.dart --out=./build/dart2js/index.js --minify
-```
-测试
-```
-node ./build/dart2js/index.js
-```
