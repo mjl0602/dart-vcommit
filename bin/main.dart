@@ -22,6 +22,19 @@ var markInfo = {
   "chore": "构建过程或辅助工具的变动",
   "revert": "撤销，版本回退"
 };
+var markTag = {
+  "feat": "🚀Feat",
+  "fix": "🔧Fix",
+  "docs": "📖Docs",
+  "style": "🌼Style",
+  "refactor": "🔭Refactor",
+  "perf": "🚁Perf",
+  "test": "🛂Test",
+  "build": "🔨Build",
+  "ci": "🚬CI",
+  "chore": "🔔Chore",
+  "revert": "⏰Revert"
+};
 main(List<String> args) {
   ArgResults _argResults;
 
@@ -90,7 +103,7 @@ main(List<String> args) {
   String targetMark;
   for (var mark in markInfo.keys) {
     if (_argResults[mark] == true) {
-      targetMark = mark.replaceRange(0, 1, mark.split('').first.toUpperCase());
+      targetMark = markTag[mark];
       break;
     }
   }
