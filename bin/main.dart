@@ -37,6 +37,13 @@ main(List<String> args) {
       abbr: 'h',
       negatable: false,
       help: "查看指令帮助",
+    )
+    ..addFlag(
+      'add',
+      abbr: 'a',
+      defaultsTo: true,
+      negatable: true,
+      help: "先运行git add .",
     );
   // 构建列表
   for (var mark in markInfo.keys) {
@@ -90,6 +97,15 @@ main(List<String> args) {
   bool willContinue = confirm();
   if (willContinue == false) {
     return;
+  }
+
+  /// git add .
+  if (_argResults['add']) {
+    Process.runSync(
+      "git",
+      ["add", "."],
+      runInShell: true,
+    );
   }
 
   /// 运行git commit命令
