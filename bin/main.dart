@@ -27,11 +27,11 @@ main(List<String> args) {
 
   // 创建ArgParser的实例，同时指定需要输入的参数
   final ArgParser argParser = new ArgParser()
-    ..addFlag(
-      'up',
-      abbr: 'u',
-      help: "版本号+1",
-    )
+    // ..addFlag(
+    //   'up',
+    //   abbr: 'u',
+    //   help: "版本号+1(TODO)",
+    // )
     ..addFlag(
       'help',
       abbr: 'h',

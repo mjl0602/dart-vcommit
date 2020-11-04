@@ -25,7 +25,6 @@ brew install dart
 生成提交: [0.1.1+2]Feat: 添加登陆功能
 ```
 命令大全
--u, --[no-]up     版本号+1
 -h, --help        查看指令帮助
 -a, --[no-]add    先运行git add .
                   (defaults to on)
@@ -41,7 +40,9 @@ brew install dart
     --chore       构建过程或辅助工具的变动
     --revert      撤销，版本回退
 ```
-# dart2native
+# 原生平台运行
+
+dart可以通过dart2native直接在原生平台运行，不需要dart环境
 
 dart2native不支持交叉编译，在每个平台上只能编译当前平台的机器码
 
