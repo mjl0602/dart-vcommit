@@ -55,22 +55,30 @@ main(List<String> args) {
     );
   }
   _argResults = argParser.parse(args);
+
+  /// 读取当前目录
+  Project project = Project.currentPath();
+
   if (_argResults['help'] || _argResults.arguments.length == 0) {
+    print('命令大全');
     print('${argParser.usage}');
+    if (project != null) {
+      print('\n当前项目版本号: ${project.version}');
+    }
+    print('\n命令示例: vcm --feat "添加登陆功能"');
+    print('生成提交: [0.1.1+2]Feat: 添加登陆功能\n');
     return;
   }
   _argResults = argParser.parse(args);
   print('执行命令: ${_argResults.arguments}');
 
-  /// 读取当前目录
-  Project project = Project.currentPath();
   if (project == null) {
     print('不支持当前项目格式');
     return;
   }
 
   /// 查询项目版本
-  String version = project.currentVersion;
+  String version = project.version;
   String content = _argResults.rest.join(' ');
   if (content.replaceAll(' ', '').isEmpty) {
     print('没有填写提交内容');
@@ -159,9 +167,9 @@ Map<ProjectType, RegExp> targetMap = {
 
 /// 当前项目
 class Project {
-  final String currentVersion;
+  final String version;
   final ProjectType type;
-  Project._(this.currentVersion, this.type);
+  Project._(this.version, this.type);
 
   /// 读取当前目录文件，判断项目类型
   /// 如果没有任何匹配，返回null
