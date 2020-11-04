@@ -113,7 +113,7 @@ main(List<String> args) {
   }
 
   /// 生成提交内容并确认
-  var commitContent = "'[$version]$targetMark: $content'";
+  var commitContent = "[$version]$targetMark: $content";
   print('请确认提交内容:\n$commitContent');
   bool willContinue = confirm();
   if (willContinue == false) {
