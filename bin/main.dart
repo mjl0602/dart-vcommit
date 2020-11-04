@@ -15,12 +15,12 @@ var markInfo = {
   "docs": "文档（documentation）",
   "style": "格式（不影响代码运行的变动）",
   "refactor": "重构（既不是新增功能，也不是修改bug的代码变动）",
-  "perf": "",
+  "perf": "???",
   "test": "增加测试",
-  "build": "",
-  "ci": "",
-  "chore": "",
-  "revert": ""
+  "build": "???",
+  "ci": "???",
+  "chore": "???",
+  "revert": "???"
 };
 main(List<String> args) {
   ArgResults _argResults;

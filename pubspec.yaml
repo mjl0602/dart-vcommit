@@ -4,6 +4,6 @@ dependencies:
   args: any
   path: ^1.6.4
 executables:
-  vcommit: main
+  vcm: main
 # 一些命令备注
 #  pub global activate --source path ./
