@@ -42,6 +42,7 @@ main(List<String> args) {
   for (var mark in markInfo.keys) {
     argParser.addFlag(
       mark,
+      // abbr: mark,
       negatable: false,
       help: markInfo[mark],
     );
