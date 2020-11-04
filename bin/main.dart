@@ -23,7 +23,7 @@ var markInfo = {
   "revert": "撤销，版本回退"
 };
 var markTag = {
-  "feat": "🚀Feat",
+  "feat": "😘Feat",
   "fix": "🔧Fix",
   "docs": "📖Docs",
   "style": "🌼Style",
