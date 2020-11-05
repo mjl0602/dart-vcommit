@@ -79,7 +79,7 @@ main(List<String> args) async {
   Project project = Project.currentPath();
 
   /// 输入help或者没有输入任何参数
-  if (_argResults['help']) {
+  if (_argResults['help'] || _argResults.arguments.length == 0) {
     print('命令大全');
     print('${argParser.usage}');
     if (project != null) {
@@ -100,6 +100,10 @@ main(List<String> args) async {
   /// 查询项目版本
   version = project.version;
   content = _argResults.rest.join(' ');
+  if (content.replaceAll(' ', '').isEmpty) {
+    print('没有填写提交内容');
+    return;
+  }
 
   /// 查询标记
   String targetMark;
@@ -117,6 +121,7 @@ main(List<String> args) async {
       break;
     }
   }
+
   // 没有标记就触发选择
   if (targetMark == null) {
     targetMark = await select();
@@ -132,11 +137,6 @@ main(List<String> args) async {
 
   if (project == null) {
     print('不支持当前项目格式');
-    return;
-  }
-
-  if (content.replaceAll(' ', '').isEmpty) {
-    print('没有填写提交内容');
     return;
   }
   print('读取到版本: $version.');
@@ -204,9 +204,7 @@ int selectIndex = 0;
 updateSelectText() {
   var targetMark = markTag[key];
   var text = ' 预览:  '
-              "[$version]$targetMark: $content"
-          .padRight(50, ' ') +
-      '${key}:${markInfo[key]}';
+      "[$version]$targetMark: $content";
   stdout.write('\r$text$longblank\r');
 }
 
@@ -214,7 +212,7 @@ updateSelectText() {
 Future<String> select() async {
   stdin.echoMode = true;
   stdin.lineMode = false;
-  print('> 请使用方向键选择一种提交类型，使用回车确认:');
+  print('> 请使用方向键选择一种Commit类型，使用enter确认，按下 h 获取帮助:');
   updateSelectText();
   await for (var cha in stdin) {
     if (cha is Uint8List) {
@@ -235,9 +233,18 @@ Future<String> select() async {
       } else {
         updateSelectText();
       }
-      if (cha.length == 1 && cha.first == 10) {
-        print('');
-        return keyList[selectIndex];
+      if (cha.length == 1) {
+        // 按下h按键
+        if (cha.first == 104) {
+          var helpText = keyList
+              .map((key) => '${markTag[key]}:${markInfo[key]}')
+              .join('\n');
+          print('\r帮助:${longblank}\n$helpText\n');
+          updateSelectText();
+        }
+        if (cha.first == 10) {
+          return keyList[selectIndex];
+        }
       }
     }
   }
