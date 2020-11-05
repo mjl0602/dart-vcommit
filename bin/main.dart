@@ -175,7 +175,7 @@ Map<String, ProjectType> typeMap = {
 /// r是屏蔽转义，直接输入目标字符，就不用写[\\s \\n]这种东西了
 Map<ProjectType, RegExp> targetMap = {
   ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)(?=\n)'),
-  ProjectType.node: RegExp(r'(?<=:\s")(.+?)(?=",)'),
+  ProjectType.node: RegExp(r'(?<=version":\s")(.+?)(?=",)'),
 };
 
 /// 当前项目

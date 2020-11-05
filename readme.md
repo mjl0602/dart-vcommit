@@ -48,7 +48,7 @@ dart2native不支持交叉编译，在每个平台上只能编译当前平台的
 
 ```bash
 # 请只在mac上运行
-dart2native bin/main.dart -o build/dart-vcommit-mac
+dart2native bin/main.dart -o build/vcm
 # 请只在windows上运行
 dart2native bin/main.dart -o build/dart-vcommit-win.exe
 ```
