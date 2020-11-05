@@ -52,11 +52,17 @@ main(List<String> args) async {
       help: "查看当前版本",
     )
     ..addFlag(
+      'push',
+      abbr: 'p',
+      negatable: false,
+      help: "在commit后push",
+    )
+    ..addFlag(
       'add',
       abbr: 'a',
       defaultsTo: true,
       negatable: true,
-      help: "先运行git add .",
+      help: "是否要先运行git add .",
     );
   // 构建列表
   for (var mark in markInfo.keys) {
@@ -99,8 +105,7 @@ main(List<String> args) async {
   String targetMark;
   // 是否从标记选择
   bool isSetFromSelect = false;
-  if (_argResults.arguments.length == _argResults.rest.length &&
-      _argResults.rest.length == 1) {
+  if (_argResults.rest.length == 1) {
     targetMark = await select();
     isSetFromSelect = targetMark != null;
     targetMark = markTag[targetMark];
@@ -161,6 +166,21 @@ main(List<String> args) async {
     print("Err: ${res.stderr}");
   }
   print('Out: ${res.stdout}');
+
+  /// 直接Push
+  if (_argResults['push']) {
+    /// 运行git commit命令
+    var res = Process.runSync(
+      "git",
+      ["push"],
+      runInShell: true,
+    );
+    print("exitCode:${res.exitCode}");
+    if (res.stderr.toString().isNotEmpty) {
+      print("Err: ${res.stderr}");
+    }
+    print('Out: ${res.stdout}');
+  }
 }
 
 /// 支持的按键键值
