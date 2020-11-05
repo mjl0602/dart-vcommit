@@ -94,8 +94,6 @@ main(List<String> args) async {
   String targetMark;
   // 是否从标记选择
   bool isSetFromSelect = false;
-  print(_argResults.rest.length);
-  print(_argResults.arguments.length);
   if (_argResults.arguments.length == _argResults.rest.length &&
       _argResults.rest.length == 1) {
     targetMark = await select();
@@ -160,18 +158,20 @@ main(List<String> args) async {
   print('Out: ${res.stdout}');
 }
 
+/// 支持的按键键值
 var keyMap = {
   "279165": 1, // up
   "279166": 2, // down
 };
 
-// 选择器
+// 选择器用到的变量
 var longblank = '                                                           ';
 List<String> get keyList => markInfo.keys.toList();
 int get max => keyList.length - 1;
 String get key => keyList[selectIndex];
 int selectIndex = 0;
 
+/// 更新屏幕上的文字
 updateSelectText() {
   var targetMark = markTag[key];
   var text = ' 预览:  '
@@ -207,10 +207,10 @@ Future<String> select() async {
         updateSelectText();
       }
       if (cha.length == 1 && cha.first == 10) {
+        print('');
         return keyList[selectIndex];
       }
     }
-    // print('oooo ${cha.runtimeType}');
   }
   return null;
 }
