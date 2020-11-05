@@ -52,6 +52,12 @@ main(List<String> args) async {
       help: "查看当前版本",
     )
     ..addFlag(
+      'yes',
+      abbr: 'y',
+      negatable: false,
+      help: "是否无需确认",
+    )
+    ..addFlag(
       'push',
       abbr: 'p',
       negatable: false,
@@ -253,6 +259,9 @@ Future<String> select() async {
 
 /// 使用y/n确认输入
 bool confirm() {
+  if (_argResults['yes']) {
+    return true;
+  }
   stdout.write('请输入确认提交(y/n):');
   var input = stdin.readLineSync(retainNewlines: true);
   input = input.replaceAll('\n', '').toLowerCase();
