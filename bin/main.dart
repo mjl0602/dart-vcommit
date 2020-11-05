@@ -4,9 +4,6 @@ import 'dart:typed_data';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
 
-/// 脚本存放路径
-// Uri templatePath = Platform.script.resolve('../template/');
-
 /// 脚本运行路径
 Uri shellPath = Uri.parse(path.join(Platform.environment['PWD']));
 
@@ -41,17 +38,18 @@ String version;
 String content;
 main(List<String> args) async {
   // 创建ArgParser的实例，同时指定需要输入的参数
-  final ArgParser argParser = new ArgParser()
-    // ..addFlag(
-    //   'up',
-    //   abbr: 'u',
-    //   help: "版本号+1(TODO)",
-    // )
+  final ArgParser argParser = ArgParser()
     ..addFlag(
       'help',
       abbr: 'h',
       negatable: false,
       help: "查看指令帮助",
+    )
+    ..addFlag(
+      'version',
+      abbr: 'v',
+      negatable: false,
+      help: "查看当前版本",
     )
     ..addFlag(
       'add',
@@ -83,6 +81,13 @@ main(List<String> args) async {
     }
     print('\n命令示例: vcm --feat "添加登陆功能"');
     print('生成提交: [0.1.1+2]Feat: 添加登陆功能\n');
+    return;
+  }
+
+  /// 打印版本号
+  if (_argResults['version']) {
+    var v = Project.currentPath(self: true).version;
+    print('VCM Version:$v');
     return;
   }
 
@@ -217,8 +222,7 @@ Future<String> select() async {
 
 /// 使用y/n确认输入
 bool confirm() {
-  // stdin.lineMode = true;
-  stdout.add('Please Confirm (y/n):'.codeUnits);
+  stdout.write('请输入确认提交(y/n):');
   var input = stdin.readLineSync(retainNewlines: true);
   input = input.replaceAll('\n', '').toLowerCase();
   if (input == "n") {
@@ -261,10 +265,17 @@ class Project {
 
   /// 读取当前目录文件，判断项目类型
   /// 如果没有任何匹配，返回null
-  factory Project.currentPath() {
+  factory Project.currentPath({bool self = false}) {
     String currentVersion;
     ProjectType type;
-    var dir = Directory.fromUri(shellPath);
+    var dir = Directory(
+      self
+          ? path.normalize(path.join(
+              Platform.script.path,
+              '../../',
+            ))
+          : shellPath.path,
+    );
     for (var file in dir.listSync()) {
       var name = path.basename(file.path);
       type = typeMap[name];
