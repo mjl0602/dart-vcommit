@@ -105,11 +105,9 @@ main(List<String> args) async {
   String targetMark;
   // 是否从标记选择
   bool isSetFromSelect = false;
-  if (_argResults.rest.length == 1) {
-    targetMark = await select();
-    isSetFromSelect = targetMark != null;
-    targetMark = markTag[targetMark];
-  }
+  // print(_argResults.arguments);
+  // print(_argResults.rest);
+  // 先找当前标记
   for (var mark in markInfo.keys) {
     if (targetMark != null) {
       break;
@@ -119,13 +117,18 @@ main(List<String> args) async {
       break;
     }
   }
+  // 没有标记就触发选择
+  if (targetMark == null) {
+    targetMark = await select();
+    isSetFromSelect = targetMark != null;
+    targetMark = markTag[targetMark];
+  }
   if (targetMark == null) {
     print("找不到可用的Commit标记: ${args}");
     return;
   }
 
-  _argResults = argParser.parse(args);
-  print('执行命令: ${_argResults.arguments}');
+  // print('执行命令: ${_argResults.arguments}');
 
   if (project == null) {
     print('不支持当前项目格式');
@@ -161,7 +164,7 @@ main(List<String> args) async {
     ["commit", "-m", commitContent],
     runInShell: true,
   );
-  print("exitCode:${res.exitCode}");
+  print("code:${res.exitCode}");
   if (res.stderr.toString().isNotEmpty) {
     print("Err: ${res.stderr}");
   }
@@ -169,13 +172,14 @@ main(List<String> args) async {
 
   /// 直接Push
   if (_argResults['push']) {
-    /// 运行git commit命令
+    print('Run:git push...');
+    // 运行git push
     var res = Process.runSync(
       "git",
       ["push"],
       runInShell: true,
     );
-    print("exitCode:${res.exitCode}");
+    print("code:${res.exitCode}");
     if (res.stderr.toString().isNotEmpty) {
       print("Err: ${res.stderr}");
     }
@@ -210,7 +214,7 @@ updateSelectText() {
 Future<String> select() async {
   stdin.echoMode = true;
   stdin.lineMode = false;
-  print('> 请选择一种提交类型，使用回车确认:');
+  print('> 请使用方向键选择一种提交类型，使用回车确认:');
   updateSelectText();
   await for (var cha in stdin) {
     if (cha is Uint8List) {
