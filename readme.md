@@ -2,6 +2,8 @@
 
 # VCommit
 
+VCommit自动为您的git commit附加当前项目的版本号，并支持选择添加Commit类型，添加对应类型标记与Emoji表情😘。
+
 # 安装
 
 ```shell
