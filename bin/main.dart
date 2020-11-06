@@ -79,7 +79,7 @@ Future<int> main(List<String> args) async {
 
   /// 没有可用标记就触发选择工具来选择标记
   if (targetMark == null) {
-    targetMark = argResults['testing'] ? 'feat' : await select();
+    targetMark = argResults['testing'] ? 'test' : await select();
     isSetFromSelect = targetMark != null;
     targetMark = markTag[targetMark];
   }
