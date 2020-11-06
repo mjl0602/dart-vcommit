@@ -32,7 +32,7 @@ class Project {
       type = typeMap[name];
       if (type != null) {
         currentVersion = versionFromFile(file, type);
-        if (currentVersion.isEmpty) {
+        if (currentVersion?.isEmpty != false) {
           continue;
         }
         break;
