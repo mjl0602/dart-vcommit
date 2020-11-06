@@ -79,6 +79,12 @@ Future<int> main(List<String> args) async {
 
   /// 没有可用标记就触发选择工具来选择标记
   if (targetMark == null) {
+    if (Platform.isWindows) {
+      print('Windows不支持方向键选择标签，只能使用命令行标记');
+      print('例如: vcm --fix "修复了一些bug"');
+      print('要查看命令行标记帮助，请运行vcm -h');
+      return 0;
+    }
     targetMark = argResults['testing'] ? 'test' : await select();
     isSetFromSelect = targetMark != null;
     targetMark = markTag[targetMark];
@@ -86,7 +92,7 @@ Future<int> main(List<String> args) async {
 
   /// 检查必备参数
   if (targetMark == null) {
-    print("找不到可用的Commit标记: ${args}");
+    print("在指令中找不到可用的Commit标记，参数内容:${args}");
     return -1;
   }
   if (project == null) {
