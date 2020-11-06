@@ -20,6 +20,7 @@ String content;
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
   /// 防止误输入
+  args = List.from(args, growable: true);
   args.remove('commit');
 
   /// 解析输入
