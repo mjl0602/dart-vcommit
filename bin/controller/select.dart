@@ -22,7 +22,7 @@ updateSelectText() {
 /// 等待用户选择一种提交类型
 Future<String> select() async {
   if (Platform.isWindows) {
-    stdin.lineMode = true;
+    // stdin.lineMode = true;
     stdin.echoMode = true;
   } else {
     stdin.lineMode = false;
