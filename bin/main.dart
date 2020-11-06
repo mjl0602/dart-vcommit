@@ -33,6 +33,10 @@ Future<int> main(List<String> args) async {
 
   /// 读取当前目录
   Project project = Project.currentPath();
+  if (project == null) {
+    print('不支持当前项目格式');
+    return -1;
+  }
 
   /// 输入help或者没有输入任何参数
   if (argResults['help'] || argResults.arguments.length == 0) {
@@ -97,10 +101,7 @@ Future<int> main(List<String> args) async {
     print("在指令中找不到可用的Commit标记，参数内容:${args}");
     return -1;
   }
-  if (project == null) {
-    print('不支持当前项目格式');
-    return -1;
-  }
+
   print('读取到版本: $version.');
 
   /// 生成提交内容并确认
