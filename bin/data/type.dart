@@ -1,3 +1,5 @@
+import 'dart:io';
+
 /// 支持的按键键值
 var keyMap = {
   "279165": 1, // up
@@ -21,10 +23,12 @@ Map<String, ProjectType> typeMap = {
   "pom.xml": ProjectType.spring,
 };
 
+String get wrap => Platform.isWindows ? r'\r\n' : r'\n';
+
 /// 正则获取版本号内容
 /// r是屏蔽转义，直接输入目标字符，就不用写[\\s \\n]这种东西了
 Map<ProjectType, RegExp> targetMap = {
-  ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)(?=\n)'),
+  ProjectType.pub: RegExp(r'(?<=version:\s)(.+?)(?=' '$wrap' ')'),
   ProjectType.node: RegExp(r'(?<=version":\s")(.+?)(?=",)'),
   // XML需要单独的解析
   ProjectType.spring: RegExp(r''),

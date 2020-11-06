@@ -4,7 +4,7 @@ import 'dart:io';
 bool confirm() {
   stdout.write('请输入确认提交(y/n):');
   var input = stdin.readLineSync(retainNewlines: true);
-  input = input.replaceAll('\n', '').toLowerCase();
+  input = input.replaceAll('\n', '').replaceAll('\r', '').toLowerCase();
   if (input == "n") {
     return false;
   }
