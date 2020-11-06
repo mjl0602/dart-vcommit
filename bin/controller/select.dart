@@ -22,8 +22,10 @@ updateSelectText() {
 /// 等待用户选择一种提交类型
 Future<String> select() async {
   if (Platform.isWindows) {
-    // stdin.lineMode = true;
-    stdin.echoMode = true;
+    print('Windows不支持方向键选择标签，只能使用命令行标记');
+    print('例如: vcm --fix "修复了一些bug"');
+    print('要查看命令行标记帮助，请运行vcm -h');
+    return null;
   } else {
     stdin.lineMode = false;
     stdin.echoMode = true;
@@ -31,6 +33,7 @@ Future<String> select() async {
   print('> 请使用方向键选择一种Commit类型，使用enter确认，按下 h 获取帮助:');
   updateSelectText();
   await for (var cha in stdin) {
+    // print(cha);
     if (cha is Uint8List) {
       if (cha.length == 3) {
         var keyValue = cha.join('');
@@ -63,6 +66,7 @@ Future<String> select() async {
         }
       }
     }
+    updateSelectText();
   }
   return null;
 }
