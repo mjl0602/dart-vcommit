@@ -45,18 +45,19 @@ ArgParser get argParser {
     )
     ..addFlag(
       'add',
-      abbr: 'a',
       defaultsTo: true,
       negatable: true,
       help: "是否要先运行git add .",
     );
-  // 构建标记列表
-  for (var mark in markInfo.keys) {
+
+  for (var i = 0; i < markInfo.keys.length; i++) {
+    String mark = markInfo.keys.toList()[i];
+    String index = '${i + 1}.'.padRight(3, ' ');
     _parser.addFlag(
       mark,
-      // abbr: mark,
+      abbr: (i + 1).toRadixString(16),
       negatable: false,
-      help: markInfo[mark],
+      help: "$index${markInfo[mark]}",
     );
   }
   return _parser;
