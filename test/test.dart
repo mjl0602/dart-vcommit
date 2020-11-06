@@ -28,11 +28,9 @@ List<TestOption> testList = [
     testFunc: () async => VCommit.main([
       "Run Unit Test",
       "--path",
-      path.normalize(path.join(
-        Platform.script.path,
-        '../../example/node/',
-      )),
+      _pathOf('../../example/node/'),
       '--testing',
+      '--test',
     ]),
   ),
   TestOption(
@@ -41,11 +39,9 @@ List<TestOption> testList = [
     testFunc: () async => VCommit.main([
       "Run Unit Test",
       "--path",
-      path.normalize(path.join(
-        Platform.script.path,
-        '../../example/pub/',
-      )),
+      _pathOf('../../example/pub/'),
       '--testing',
+      '--test',
     ]),
   ),
   TestOption(
@@ -54,14 +50,28 @@ List<TestOption> testList = [
     testFunc: () async => VCommit.main([
       "Run Unit Test",
       "--path",
-      path.normalize(path.join(
-        Platform.script.path,
-        '../../example/spring/',
-      )),
+      _pathOf('../../example/spring/'),
       '--testing',
+      '--test',
     ]),
   ),
 ];
+
+String _pathOf(String p) {
+  var _path = path.normalize(
+    path.join(
+      Platform.script.path,
+      p,
+    ),
+  );
+  if (Platform.isWindows) {
+    if (_path.startsWith(r'\')) {
+      _path = _path.substring(1, _path.length);
+    }
+  }
+  // print(_path);
+  return _path;
+}
 
 class TestOption {
   final String name;

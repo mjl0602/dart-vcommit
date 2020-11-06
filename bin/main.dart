@@ -19,14 +19,16 @@ String content;
 
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
-  // print(args);
-
   /// 解析输入
   argResults = argParser.parse(args);
 
+  if (argResults['testing']) {
+    print('Testing Arg:$args');
+  }
+
   /// 指定运行路径
   if (argResults['path'] != null) {
-    shellPath = Uri.parse(argResults['path']);
+    shellPath = path.toUri(argResults['path']);
   }
 
   /// 读取当前目录

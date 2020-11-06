@@ -19,14 +19,15 @@ class Project {
   factory Project.currentPath({bool self = false}) {
     String currentVersion;
     ProjectType type;
-    var dir = Directory(
+    var dir = Directory.fromUri(
       self
-          ? path.normalize(path.join(
+          ? path.toUri(path.normalize(path.join(
               Platform.script.path,
               '../../',
-            ))
-          : shellPath.path,
+            )))
+          : shellPath,
     );
+
     for (var file in dir.listSync()) {
       var name = path.basename(file.path).replaceAll('.sample', '');
       type = typeMap[name];
