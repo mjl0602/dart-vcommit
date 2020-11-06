@@ -21,8 +21,13 @@ updateSelectText() {
 
 /// 等待用户选择一种提交类型
 Future<String> select() async {
-  stdin.echoMode = true;
-  stdin.lineMode = false;
+  if (Platform.isWindows) {
+    stdin.lineMode = true;
+    stdin.echoMode = true;
+  } else {
+    stdin.lineMode = false;
+    stdin.echoMode = true;
+  }
   print('> 请使用方向键选择一种Commit类型，使用enter确认，按下 h 获取帮助:');
   updateSelectText();
   await for (var cha in stdin) {
