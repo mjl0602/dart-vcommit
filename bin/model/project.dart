@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:xml/xml.dart' as xml;
+import 'package:xml/xml_events.dart';
+
 import '../data/type.dart';
 import 'package:path/path.dart' as path;
 
@@ -42,6 +45,18 @@ class Project {
   /// 从当前目录读取目标版本号
   static String versionFromFile(File file, ProjectType type) {
     var content = file.readAsStringSync();
+    if (type == ProjectType.spring) {
+      var all = xml.parse(content).findElements('project').toList();
+      for (var element in all) {
+        var res = element.findElements('version').toList();
+        if (res.length > 0) {
+          print(res.first.text);
+          print(res.first.text.length);
+          return res.first.text;
+        }
+      }
+      return null;
+    }
     // 使用正则匹配
     return targetMap[type].stringMatch(content);
   }

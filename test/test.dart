@@ -51,7 +51,15 @@ List<TestOption> testList = [
   TestOption(
     name: "Java",
     description: "测试Java项目(Spring)",
-    testFunc: () async => 0,
+    testFunc: () async => VCommit.main([
+      "Run Unit Test",
+      "--path",
+      path.normalize(path.join(
+        Platform.script.path,
+        '../../example/spring/',
+      )),
+      '--testing',
+    ]),
   ),
 ];
 
