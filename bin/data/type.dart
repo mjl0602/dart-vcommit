@@ -34,7 +34,9 @@ Map<ProjectType, RegExp> targetMap = {
   ProjectType.spring: RegExp(r''),
 };
 
-var markInfo = {
+bool useEmoji = false;
+
+Map<String, String> markInfo = {
   "feat": "新功能（feature）",
   "fix": "修补bug",
   "docs": "文档（documentation）",
@@ -48,16 +50,30 @@ var markInfo = {
   "revert": "撤销，版本回退"
 };
 
-var markTag = {
-  "feat": "😘Feat",
-  "fix": "🔧Fix",
-  "docs": "📖Docs",
-  "style": "🌼Style",
-  "refactor": "🔭Refactor",
-  "perf": "🚁Perf",
-  "test": "🛂Test",
-  "build": "🔨Build",
-  "ci": "🚬CI",
-  "chore": "🔔Chore",
-  "revert": "⏰Revert"
-};
+Map<String, String> get markTag => useEmoji
+    ? {
+        "feat": "😘Feat",
+        "fix": "🔧Fix",
+        "docs": "📖Docs",
+        "style": "🌼Style",
+        "refactor": "🔭Refactor",
+        "perf": "🚁Perf",
+        "test": "🛂Test",
+        "build": "🔨Build",
+        "ci": "🚬CI",
+        "chore": "🔔Chore",
+        "revert": "⏰Revert"
+      }
+    : {
+        "feat": "Feat",
+        "fix": "Fix",
+        "docs": "Docs",
+        "style": "Style",
+        "refactor": "Refactor",
+        "perf": "Perf",
+        "test": "Test",
+        "build": "Build",
+        "ci": "CI",
+        "chore": "Chore",
+        "revert": "Revert"
+      };

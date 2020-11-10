@@ -19,7 +19,7 @@ String content;
 
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
-  // print(Platform.environment['PWD']);
+  // print(Platform.environment);
 
   /// 防止误输入
   args = List.from(args, growable: true);
@@ -40,6 +40,9 @@ Future<int> main(List<String> args) async {
   if (argResults['testing']) {
     print('Testing Arg:$args');
   }
+
+  /// 是否使用Emoji
+  useEmoji = argResults['emoji'];
 
   /// 指定运行路径
   if (argResults['path'] != null) {
@@ -70,12 +73,6 @@ Future<int> main(List<String> args) async {
     print('不支持当前项目格式');
     return -1;
   }
-  // /// 打印版本号
-  // if (argResults['version']) {
-  //   var v = Project.currentPath(self: true).version;
-  //   print('VCM Version:$v');
-  //   return -1;
-  // }
 
   /// 查询项目版本
   version = project.version;

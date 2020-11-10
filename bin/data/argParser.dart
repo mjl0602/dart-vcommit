@@ -11,12 +11,13 @@ ArgParser get argParser {
       negatable: false,
       help: "查看指令帮助",
     )
-    // ..addFlag(
-    //   'version',
-    //   abbr: 'v',
-    //   negatable: false,
-    //   help: "查看当前版本",
-    // )
+    ..addFlag(
+      'emoji',
+      abbr: 'e',
+      negatable: true,
+      defaultsTo: false,
+      help: "是否显示emoji表情",
+    )
     ..addFlag(
       'yes',
       abbr: 'y',
@@ -33,11 +34,6 @@ ArgParser get argParser {
       'path',
       help: "在指定路径运行",
     )
-    // ..addFlag(
-    //   'runtest',
-    //   negatable: false,
-    //   help: "运行单元测试",
-    // )
     ..addFlag(
       'testing',
       negatable: false,
