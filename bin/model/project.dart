@@ -19,6 +19,7 @@ class Project {
   factory Project.currentPath({bool self = false}) {
     String currentVersion;
     ProjectType type;
+    print('Read Project:$shellPath');
     var dir = Directory.fromUri(
       self
           ? path.toUri(path.normalize(path.join(
@@ -27,7 +28,6 @@ class Project {
             )))
           : shellPath,
     );
-
     for (var file in dir.listSync()) {
       var name = path.basename(file.path).replaceAll('.sample', '');
       type = typeMap[name];

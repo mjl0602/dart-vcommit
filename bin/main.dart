@@ -19,9 +19,21 @@ String content;
 
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
+  // print(Platform.environment['PWD']);
+
   /// 防止误输入
   args = List.from(args, growable: true);
   args.remove('commit');
+
+  /// read windows path
+  if (Platform.isWindows) {
+    String path = Process.runSync(
+      "chdir",
+      [],
+      runInShell: true,
+    ).stdout;
+    args.addAll(['--path', path.replaceAll('\r\n', '')]);
+  }
 
   /// 解析输入
   argResults = argParser.parse(args);
@@ -42,10 +54,6 @@ Future<int> main(List<String> args) async {
   } catch (e) {
     print('读取当前项目出错');
   }
-  if (project == null) {
-    print('不支持当前项目格式');
-    return -1;
-  }
 
   /// 输入help或者没有输入任何参数
   if (argResults['help'] || argResults.arguments.length == 0) {
@@ -59,6 +67,10 @@ Future<int> main(List<String> args) async {
     return 1;
   }
 
+  if (project == null) {
+    print('不支持当前项目格式');
+    return -1;
+  }
   // /// 打印版本号
   // if (argResults['version']) {
   //   var v = Project.currentPath(self: true).version;
