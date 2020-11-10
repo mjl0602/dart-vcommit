@@ -27,11 +27,12 @@ Future<int> main(List<String> args) async {
 
   /// read windows path
   if (Platform.isWindows) {
-    shellPath = Process.runSync(
+    var _path = Process.runSync(
       "chdir",
       [],
       runInShell: true,
     ).stdout.replaceAll('\r\n', '');
+    shellPath = path.toUri(_path);
   }
 
   /// 解析输入
