@@ -54,12 +54,12 @@ Future<int> main(List<String> args) async {
     return 1;
   }
 
-  /// 打印版本号
-  if (argResults['version']) {
-    var v = Project.currentPath(self: true).version;
-    print('VCM Version:$v');
-    return -1;
-  }
+  // /// 打印版本号
+  // if (argResults['version']) {
+  //   var v = Project.currentPath(self: true).version;
+  //   print('VCM Version:$v');
+  //   return -1;
+  // }
 
   /// 查询项目版本
   version = project.version;

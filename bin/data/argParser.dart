@@ -11,12 +11,12 @@ ArgParser get argParser {
       negatable: false,
       help: "查看指令帮助",
     )
-    ..addFlag(
-      'version',
-      abbr: 'v',
-      negatable: false,
-      help: "查看当前版本",
-    )
+    // ..addFlag(
+    //   'version',
+    //   abbr: 'v',
+    //   negatable: false,
+    //   help: "查看当前版本",
+    // )
     ..addFlag(
       'yes',
       abbr: 'y',
