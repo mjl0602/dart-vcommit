@@ -36,7 +36,12 @@ Future<int> main(List<String> args) async {
   }
 
   /// 读取当前目录
-  Project project = Project.currentPath();
+  Project project;
+  try {
+    project = Project.currentPath();
+  } catch (e) {
+    print('读取当前项目出错');
+  }
   if (project == null) {
     print('不支持当前项目格式');
     return -1;
