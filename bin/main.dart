@@ -20,6 +20,7 @@ String content;
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
   // print(Platform.environment);
+  /// 是否使用Emoji
 
   /// 防止误输入
   args = List.from(args, growable: true);
@@ -37,13 +38,12 @@ Future<int> main(List<String> args) async {
 
   /// 解析输入
   argResults = argParser.parse(args);
+  useEmoji = argResults['emoji'];
+  argResults = argParser.parse(args);
 
   if (argResults['testing']) {
     print('Testing Arg:$args');
   }
-
-  /// 是否使用Emoji
-  useEmoji = argResults['emoji'];
 
   /// 指定运行路径
   if (argResults['path'] != null) {

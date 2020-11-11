@@ -1,5 +1,5 @@
 name: vcommit
-version: 0.5.0+1
+version: 0.5.0+2
 dependencies:
   args: any
   path: ^1.6.4
@@ -7,6 +7,5 @@ dependencies:
 
 executables:
   vcm: main
-
 # 一些命令备注
 #  pub global activate --source path ./

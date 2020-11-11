@@ -53,7 +53,7 @@ ArgParser get argParser {
       mark,
       abbr: (i + 1).toRadixString(16),
       negatable: false,
-      help: "$index${markInfo[mark]}",
+      help: "$index ${markTag[mark]}:${markInfo[mark]}",
     );
   }
   return _parser;
