@@ -9,4 +9,4 @@ environment:
 executables:
   vcm: main
 # 一些命令备注
-#  pub global activate --source path ./
+# pub global activate --source path ./

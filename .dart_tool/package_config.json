@@ -3,21 +3,21 @@
   "packages": [
     {
       "name": "args",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/args-1.6.0",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/args-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.3"
+      "languageVersion": "2.12"
     },
     {
       "name": "charcode",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/charcode-1.1.3",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/charcode-1.3.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/collection-1.14.13",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/collection-1.15.0",
       "packageUri": "lib/",
-      "languageVersion": "2.3"
+      "languageVersion": "2.12"
     },
     {
       "name": "convert",
@@ -27,33 +27,33 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/meta-1.1.8",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/meta-1.7.0",
       "packageUri": "lib/",
-      "languageVersion": "1.12"
+      "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/path-1.7.0",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/path-1.8.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "petitparser",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/petitparser-2.4.0",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/petitparser-3.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.4"
+      "languageVersion": "2.7"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.2.0",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.4"
+      "languageVersion": "2.12"
     },
     {
       "name": "xml",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/xml-3.6.1",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/xml-3.7.0",
       "packageUri": "lib/",
-      "languageVersion": "2.6"
+      "languageVersion": "2.7"
     },
     {
       "name": "vcommit",
@@ -62,7 +62,7 @@
       "languageVersion": "2.10"
     }
   ],
-  "generated": "2021-05-08T08:10:13.258951Z",
+  "generated": "2021-10-21T07:40:48.161072Z",
   "generator": "pub",
-  "generatorVersion": "2.12.3"
+  "generatorVersion": "2.14.4"
 }
