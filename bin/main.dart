@@ -11,11 +11,11 @@ import 'data/type.dart';
 import 'model/project.dart';
 
 /// 脚本运行路径
-Uri shellPath = Uri.parse(path.join(Platform.environment['PWD']));
+Uri shellPath = Uri.parse(path.join(Platform.environment['PWD'] ?? ''));
 
-ArgResults argResults;
-String version;
-String content;
+late ArgResults argResults;
+String? version;
+String? content;
 
 /// 主方法，返回值：1-显示帮助，0-正常运行，-1-运行出错
 Future<int> main(List<String> args) async {
@@ -51,7 +51,7 @@ Future<int> main(List<String> args) async {
   }
 
   /// 读取当前目录
-  Project project;
+  Project? project;
   try {
     project = Project.currentPath();
   } catch (e) {
@@ -79,13 +79,13 @@ Future<int> main(List<String> args) async {
   version = project.version;
   // print(argResults.rest);
   content = argResults.rest.join(' ');
-  if (content.replaceAll(' ', '').isEmpty) {
+  if ((content?.replaceAll(' ', '') ?? '').isEmpty) {
     print('没有填写提交内容');
     return -1;
   }
 
   /// 查询标记
-  String targetMark;
+  String? targetMark;
   // 是否从标记选择
   bool isSetFromSelect = false;
   // print(_argResults.arguments);

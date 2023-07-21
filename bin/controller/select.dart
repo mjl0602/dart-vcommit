@@ -20,7 +20,7 @@ updateSelectText() {
 }
 
 /// 等待用户选择一种提交类型
-Future<String> select() async {
+Future<String?> select() async {
   if (Platform.isWindows) {
     print('Windows不支持方向键选择标签，只能使用命令行标记');
     print('例如: vcm --fix "修复了一些bug"');

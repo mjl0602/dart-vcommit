@@ -80,17 +80,17 @@ class TestOption {
   final Future<int> Function() testFunc;
 
   TestOption({
-    this.name,
-    this.description,
-    this.testFunc,
-    this.expect: 0,
+    required this.name,
+    required this.description,
+    required this.testFunc,
+    this.expect = 0,
   });
 
   Future run() async {
     print('\n===Test: $name');
     print('Description: $description');
     print('Running...');
-    int result = await testFunc?.call();
+    int? result = await testFunc?.call();
     assert(result == expect);
     print('End With: $result');
     print('===End');
