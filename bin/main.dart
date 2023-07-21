@@ -136,6 +136,7 @@ Future<int> main(List<String> args) async {
 
   /// git add .
   if (argResults['add']) {
+    print('Run: git add .');
     Process.runSync(
       "git",
       ["add", "."],
@@ -147,6 +148,7 @@ Future<int> main(List<String> args) async {
     print("Test Result: $commitContent");
     return 0;
   }
+  print(["git", "commit", "-m", commitContent].join(' '));
 
   /// 运行git commit命令
   var res = Process.runSync(
