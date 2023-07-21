@@ -1,5 +1,5 @@
 name: vcommit
-version: 0.6.0+6
+version: 0.6.0+7
 dependencies:
   args: any
   path: ^1.6.4
